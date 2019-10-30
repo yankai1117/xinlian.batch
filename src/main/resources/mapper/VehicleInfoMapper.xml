@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.batch.dao.VehicleInfoDAO">
+	
+
+	<select id="findByPlateNumAndName"
+		resultType="com.example.batch.entity.VehicleInfoBean">
+		
+		SELECT * FROM (
+				SELECT
+				t0.VEHICLENUM_TYPE as carType,
+				t0.CARPLATENUMBER as carNumber,
+				t0.BRANDNAME as carBrand,
+				t0.VEHICLEMODELC as  carModel,
+				t0.VEHICLEVERIFYNUM as carCode,
+				t0.ENGINENUMBER as  engineNo,
+				t0.VEHICLETYPE as  vehicleType,
+				t0.BODYCOLOR as color,
+				t0.USETYPE as  useCharacter,
+				t0.OWNER as  name,
+				t0.FIRSTISSUEDATE as  initialRegDate,
+				t0.VALIDITYDAYEND as  jianCheTime,
+				t0.RETIREMENTDATE as  retireDate,
+				t0.VEHICLESTATUS as  status,
+				t0.ENGINEMODEL as  engineModel,
+				t0.FUELTYPE as  fuelType,
+				t0.DISCHARGEVALUE as displacement ,
+				t0.POWER as  enginesMaxPower,
+				t0.SHAFT as  noOfAxles,
+				t0.WHEELBASE as  wheelbase,
+				t0.FRONTTREAD as frontTread ,
+				t0.REARTREAD as rearTread ,
+				t0.CROSSWEIGHT as crossWeight ,
+				t0.CURBWEIGHT as  curbWeight,
+				t0.LOADWEIGHT as  loadCapacity,
+				t0.PASSENGERS as  seating,
+				t0.PPSDATE as  prodDate
+				FROM VCARDALLINFO  t0
+				where 	1=1	
+				and account_flag = '0' 
+				and rspcode = '200'
+				AND LAST_SMP IS NOT NULL
+				and t0.CARPLATENUMBER = #{carNumber}
+				and t0.OWNER = #{name}
+		 		ORDER BY t0.last_smp DESC) WHERE ROWNUM = 1
+	</select>
+
+	<insert id="insert" parameterType="com.example.batch.entity.VehicleInfoBean">
+		insert into VCARDALLINFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="PARTNER_ID != null">PARTNER_ID,</if>
+			<if test="serialNo != null">REQUEST_ID,</if>
+			<if test="carCode != null">VIN,</if>
+			<if test="carType != null">VEHICLENUM_TYPE,</if>
+			<if test="carType != null">PLATETYPE,</if>
+			<if test="carNumber != null">CARPLATENUMBER,</if>
+			<if test="carNumber != null">PLATENUMBER,</if>
+			<if test="carBrand != null">BRANDNAME,</if>
+			<if test="carModel != null">VEHICLEMODELC,</if>
+			<if test="carModel != null">TYPE,</if>
+			<if test="engineNo != null">ENGINENUMBER,</if>
+			<if test="color != null">BODYCOLOR,</if>
+			<if test="useCharacter != null">USETYPE,</if>
+			<if test="retireDate != null">RETIREMENTDATE,</if>
+			<if test="status != null">VEHICLESTATUS,</if>
+			<if test="engineModel != null">ENGINEMODEL,</if>
+			<if test="fuelType != null">FUELTYPE,</if>
+			<if test="displacement != null">CC,</if>
+			<if test="displacement != null">DISCHARGEVALUE,</if>
+			<if test="noOfAxles != null">SHAFT,</if>
+			<if test="wheelbase != null">WHEELBASE,</if>
+			<if test="frontTread != null">FRONTTREAD,</if>
+			<if test="rearTread != null">REARTREAD,</if>
+			<if test="crossWeight != null">CROSSWEIGHT,</if>
+			<if test="curbWeight != null">CURBWEIGHT,</if>
+			<if test="loadCapacity != null">LOADWEIGHT,</if>
+			<if test="seating != null">PASSENGERS,</if>
+			<if test="prodDate != null">PPSDATE,</if>
+			<if test="annualCheckTime != null">CHECK_DATE,</if>
+			<if test="enginesMaxPower != null">MAXJOURNEY,</if>
+			<if test="enginesMaxPower != null">POWER,</if>
+			<if test="initialRegDate != null">FIRSTISSUEDATE,</if>
+			<if test="initialRegDate != null">RECORD_DATE,</if>
+			<if test="code != null">RSPCODE,</if>
+			<if test="message != null">RSPMSG,</if>
+			<if test="ACCOUNT_FLAG != null">ACCOUNT_FLAG,</if>
+			<if test="jianCheTime != null">VALIDITYDAYEND,</if>
+			<if test="carCode != null">VEHICLEVERIFYNUM,</if>
+			<if test="vehicleType != null">VEHICLETYPE,</if>
+			<if test="name != null">OWNER,</if>
+			<if test="VERIFY_STATUS != null">VERIFY_STATUS,</if>
+			<if test="CHANNEL_FLAG != null">CHANNEL_FLAG,</if>
+			LAST_SMP,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="PARTNER_ID != null">#{PARTNER_ID,jdbcType=VARCHAR},</if>
+			<if test="serialNo != null">#{serialNo,jdbcType=VARCHAR},</if>
+			<if test="carCode != null">#{carCode,jdbcType=VARCHAR},</if>
+			<if test="carType != null">#{carType,jdbcType=VARCHAR},</if>
+			<if test="carType != null">#{carType,jdbcType=VARCHAR},</if>
+			<if test="carNumber != null">#{carNumber,jdbcType=VARCHAR},</if>
+			<if test="carNumber != null">#{carNumber,jdbcType=VARCHAR},</if>
+			<if test="carBrand != null">#{carBrand,jdbcType=VARCHAR},</if>
+			<if test="carModel != null">#{carModel,jdbcType=VARCHAR},</if>
+			<if test="carModel != null">#{carModel,jdbcType=VARCHAR},</if>
+			<if test="engineNo != null">#{engineNo,jdbcType=VARCHAR},</if>
+			<if test="color != null">#{color,jdbcType=VARCHAR},</if>
+			<if test="useCharacter != null">#{useCharacter,jdbcType=VARCHAR},</if>
+			<if test="retireDate != null">#{retireDate,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=VARCHAR},</if>
+			<if test="engineModel != null">#{engineModel,jdbcType=VARCHAR},</if>
+			<if test="fuelType != null">#{fuelType,jdbcType=VARCHAR},</if>
+			<if test="displacement != null">#{displacement,jdbcType=VARCHAR},</if>
+			<if test="displacement != null">#{displacement,jdbcType=VARCHAR},</if>
+			<if test="noOfAxles != null">#{noOfAxles,jdbcType=VARCHAR},</if>
+			<if test="wheelbase != null">#{wheelbase,jdbcType=VARCHAR},</if>
+			<if test="frontTread != null">#{frontTread,jdbcType=VARCHAR},</if>
+			<if test="rearTread != null">#{rearTread,jdbcType=VARCHAR},</if>
+			<if test="crossWeight != null">#{crossWeight,jdbcType=VARCHAR},</if>
+			<if test="curbWeight != null">#{curbWeight,jdbcType=VARCHAR},</if>
+			<if test="loadCapacity != null">#{loadCapacity,jdbcType=VARCHAR},</if>
+			<if test="seating != null">#{seating,jdbcType=VARCHAR},</if>
+			<if test="prodDate != null">#{prodDate,jdbcType=VARCHAR},</if>
+			<if test="jianCheTime != null">#{jianCheTime,jdbcType=VARCHAR},</if>
+			<if test="enginesMaxPower != null">#{enginesMaxPower,jdbcType=VARCHAR},</if>
+			<if test="enginesMaxPower != null">#{enginesMaxPower,jdbcType=VARCHAR},</if>
+			<if test="initialRegDate != null">#{initialRegDate,jdbcType=VARCHAR},</if>
+			<if test="initialRegDate != null">#{initialRegDate,jdbcType=VARCHAR},</if>
+			<if test="code != null">#{code,jdbcType=VARCHAR},</if>
+			<if test="message != null">#{message,jdbcType=VARCHAR},</if>
+			<if test="ACCOUNT_FLAG != null">#{ACCOUNT_FLAG,jdbcType=VARCHAR},</if>
+			<if test="jianCheTime != null">#{jianCheTime,jdbcType=VARCHAR},</if>
+			<if test="carCode != null">#{carCode,jdbcType=VARCHAR},</if>
+			<if test="vehicleType != null">#{vehicleType,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="VERIFY_STATUS != null">#{VERIFY_STATUS,jdbcType=VARCHAR},</if>
+			<if test="CHANNEL_FLAG != null">#{CHANNEL_FLAG,jdbcType=VARCHAR},</if>
+			to_char(SYSDATE, 'YYYYMMDDHH24MISS'),
+		</trim>
+	</insert>
+</mapper>
